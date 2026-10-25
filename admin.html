@@ -52,28 +52,41 @@
             justify-content: space-between;
             align-items: center;
         }
-        .cards {
-            display: flex;
-            gap: 20px;
-            margin-bottom: 25px;
-        }
-        .card {
+        table {
+            width: 100%;
             background: white;
-            padding: 20px;
+            border-collapse: collapse;
             border-radius: 8px;
-            flex: 1;
+            overflow: hidden;
             box-shadow: 0 2px 5px rgba(0,0,0,0.05);
         }
-        .card h3 {
-            margin: 0 0 10px 0;
-            color: #666;
-            font-size: 14px;
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
         }
-        .card p {
-            margin: 0;
-            font-size: 24px;
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+        .btn-accept {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .btn-reject {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .status {
             font-weight: bold;
-            color: #333;
         }
     </style>
 </head>
@@ -82,32 +95,62 @@
     <div class="sidebar">
         <h2>MrShine Admin</h2>
         <a href="#">Dashboard</a>
-        <a href="#">Bookings</a>
-        <a href="#">Customers</a>
+        <a href="#">Orders</a>
         <a href="login.html">Logout</a>
     </div>
 
     <div class="main-content">
         <div class="header">
-            <h2>Dashboard Overview</h2>
-            <span>Welcome, Admin</span>
+            <h2>Customer Orders Management</h2>
+            <span>Admin ID: <b>admin</b></span>
         </div>
 
-        <div class="cards">
-            <div class="card">
-                <h3>Total Bookings</h3>
-                <p>24</p>
-            </div>
-            <div class="card">
-                <h3>Active Services</h3>
-                <p>12</p>
-            </div>
-            <div class="card">
-                <h3>Revenue</h3>
-                <p>₹15,400</p>
-            </div>
-        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Order ID</th>
+                    <th>Customer Name</th>
+                    <th>Service</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>#101</td>
+                    <td>Rahul Sharma</td>
+                    <td>Car Wash & Detailing</td>
+                    <td><span id="status-1" class="status" style="color: orange;">Pending</span></td>
+                    <td>
+                        <button class="btn-accept" onclick="updateStatus(1, 'Accepted')">Accept</button>
+                        <button class="btn-reject" onclick="updateStatus(1, 'Rejected')">Reject</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>#102</td>
+                    <td>Aman Verma</td>
+                    <td>Interior Cleaning</td>
+                    <td><span id="status-2" class="status" style="color: orange;">Pending</span></td>
+                    <td>
+                        <button class="btn-accept" onclick="updateStatus(2, 'Accepted')">Accept</button>
+                        <button class="btn-reject" onclick="updateStatus(2, 'Rejected')">Reject</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
+
+    <script>
+        function updateStatus(orderId, statusText) {
+            var statusSpan = document.getElementById('status-' + orderId);
+            statusSpan.innerText = statusText;
+            if(statusText === 'Accepted') {
+                statusSpan.style.color = 'green';
+            } else {
+                statusSpan.style.color = 'red';
+            }
+        }
+    </script>
 
 </body>
 </html>
